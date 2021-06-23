@@ -388,6 +388,12 @@ class ChatAPI
         if ($cam['file'] === false) {
             $data['body'] = $cam['msg'];
 
+            if (strpos($cam['to'], '@') === false) {
+                $data['phone'] = preg_replace('/[^0-9]/', '', $cam['to']);
+            } else {
+                $data['chatId'] = $cam['to'];
+            }
+
             $res = $this->httpClient()->post($this->uriWithToken('/sendMessage'), ['json' => $data]);
         } else {
             $data = $this->extractFiledata($cam['file']['body'], $cam['file']['filename'], $cam['file']['mimetype']);
@@ -395,13 +401,13 @@ class ChatAPI
                 $data['caption'] = $cam['msg'];
             }
 
+            if (strpos($cam['to'], '@') === false) {
+                $data['phone'] = preg_replace('/[^0-9]/', '', $cam['to']);
+            } else {
+                $data['chatId'] = $cam['to'];
+            }
+    
             $res = $this->httpClient()->post($this->uriWithToken('/sendFile'), ['json' => $data]);
-        }
-
-        if (strpos($cam['to'], '@') === false) {
-            $data['phone'] = preg_replace('/[^0-9]/', '', $cam['to']);
-        } else {
-            $data['chatId'] = $cam['to'];
         }
 
         return json_decode($res->getBody()->getContents(), true);
