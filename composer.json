@@ -1,0 +1,41 @@
+{
+    "name": "cepeinado/chatapi-whatsapp",
+    "description": "Send WhatsApp messages with Chat API",
+    "homepage": "https://github.com/cepeinado/chatapi-whatsapp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Carlos Peinado",
+            "email": "cepeinado@gmail.com",
+            "homepage": "https://github.com/cepeinado/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.4",
+        "guzzlehttp/guzzle": "^6.2",
+        "ext-json": "*"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.5",
+        "phpunit/phpunit": "4.*",
+        "illuminate/notifications": "^5.3",
+        "illuminate/support": "^5.1|^5.2|^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "ChatAPI\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ChatAPI\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
