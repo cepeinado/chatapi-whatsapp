@@ -385,13 +385,13 @@ class ChatAPI
         $cam = $chatAPIMessage->toArray();
         $data = [];
 
-        if ($cam['file'] !== false) {
+        if ($cam['file'] === false) {
             $data['body'] = $cam['msg'];
 
             $res = $this->httpClient()->post($this->uriWithToken('/sendMessage'), ['json' => $data]);
         } else {
             $data = $this->extractFiledata($cam['file']['body'], $cam['file']['filename'], $cam['file']['mimetype']);
-            if ($cam['msg'] !== null) {
+            if ($cam['msg'] !== '') {
                 $data['caption'] = $cam['msg'];
             }
 
