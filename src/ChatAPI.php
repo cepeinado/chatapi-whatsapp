@@ -210,6 +210,28 @@ class ChatAPI
         }
     }
 
+        /**
+     * @param int $byMsgId MessageId to read
+     * @return array
+     */
+    public function message($byMsgId)
+    {
+        try {
+            $data = [
+                'token' => $this->token,
+                'msgId' => $byMsgId
+            ];
+
+            $res = $this->httpClient()->get($this->api_url.'/messages?'.http_build_query($data));
+
+            return json_decode($res->getBody()->getContents(), true);
+        } catch (ClientException $exception) {
+            throw CouldNotSendNotification::serviceRespondedWithAnError($exception);
+        } catch (\Exception $exception) {
+            throw CouldNotSendNotification::couldNotCommunicateWithChatAPI($exception->getMessage());
+        }
+    }
+
     /**
      * Sets the URL for receiving webhook notifications of new messages and message delivery events (ack).
      * @param string $webhook_url Http or https URL for receiving notifications. For testing, we recommend using requestb.in.
